@@ -1,53 +1,53 @@
-.dynamic-cards-container {
+.carousel-container {
+    position: relative;
+    width: 100%;
+    /* max-width: 800px; */
+    overflow: hidden;
+    margin: auto;
+}
+
+.carousel-track {
     display: flex;
-    flex-wrap: wrap;
     gap: 16px;
-    justify-content: flex-start;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 16px;
+    /* white-space: nowrap; */
+    scrollbar-width: none;
+}
+
+.carousel-track::-webkit-scrollbar {
+    display: none;
 }
 
 .dynamic-card {
-    border: 1px solid #ccc;
+    /* flex: 0 0 auto; */
+    width: 250px;
+    /* border: 1px solid #ddd; */
     border-radius: 8px;
-    overflow: hidden;
-    min-height: 250px;
-    width: calc(25% - 16px);
-    box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+    padding: 16px;
+    background-color: #fff;
+    text-align: center;
+    /* box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); */
 }
 
-@media (width <=1200px) {
-    .dynamic-card {
-        width: calc(33.33% - 16px);
-    }
+.dots-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 12px;
 }
 
-@media (width <=992px) {
-    .dynamic-card {
-        width: calc(50% - 16px);
-    }
+.dot {
+    width: 12px;
+    height: 12px;
+    margin: 0 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-@media (width <=768px) {
-    .dynamic-card {
-        width: calc(100% - 16px);
-    }
-}
-
-.dynamic-card img {
-    width: 100%;
-    height: 70%;
-}
-
-.dynamic-card h3 {
-    /* margin: 8px; */
-    font-size: 1em;
-    margin: 0 80px;
-}
-
-.dynamic-card p {
-    margin: 8px;
-    font-size: 0.85em;
-    color: #555;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+.dot.active {
+    background-color: #333;
 }

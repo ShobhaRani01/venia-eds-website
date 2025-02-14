@@ -13,8 +13,8 @@ function createCard(data) {
   header.textContent = data.title;
 
   const description = document.createElement('p');
-  description.textContent = data.description;
   // description.textContent = data.description || 'No description available';
+  description.textContent = data.description;
 
   card.append(img, header, description);
   return card;
@@ -26,14 +26,33 @@ async function fetchJsonData(jsonURL) {
   return resp.json();
 }
 
-function createCardsContainer(data) {
-  const container = document.createElement('div');
-  container.classList.add('dynamic-cards-container');
+function createCarousel(data) {
+  const carouselContainer = document.createElement('div');
+  carouselContainer.classList.add('carousel-container');
+
+  const carouselTrack = document.createElement('div');
+  carouselTrack.classList.add('carousel-track');
 
   const cardElements = data.map(createCard);
+  carouselTrack.append(...cardElements);
 
-  container.append(...cardElements);
-  return container;
+  const dotsContainer = document.createElement('div');
+  dotsContainer.classList.add('dots-container');
+
+  cardElements.forEach((_, index) => {
+    const dot = document.createElement('span');
+    dot.classList.add('dot');
+    if (index === 0) dot.classList.add('active');
+    dot.addEventListener('click', () => {
+      carouselTrack.scrollTo({ left: index * 300, behavior: 'smooth' });
+      document.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
+      dot.classList.add('active');
+    });
+    dotsContainer.appendChild(dot);
+  });
+
+  carouselContainer.append(carouselTrack, dotsContainer);
+  return carouselContainer;
 }
 
 export default async function decorate(block) {
@@ -46,8 +65,8 @@ export default async function decorate(block) {
   try {
     const jsonURL = queryIndexLink.href;
     const jsonData = await fetchJsonData(jsonURL);
-    const cardsContainer = createCardsContainer(jsonData.data);
-    parentDiv.append(cardsContainer);
+    const carousel = createCarousel(jsonData.data);
+    parentDiv.append(carousel);
     queryIndexLink.replaceWith(parentDiv);
   } catch (error) {
     console.error('Error creating dynamic magazine block:', error);

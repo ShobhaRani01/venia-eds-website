@@ -55,8 +55,10 @@
     z-index: 1;
     margin: 68px;
     padding: 16px;
-    color: white;
-    background-color: rgba(19 19 19 / 75%);
+    color: black;
+    font-size: 14px;
+    /* color: white;
+    background-color: rgba(19 19 19 / 75%); */
     position: relative;
     width: var(--slide-content-width, auto);
 }
@@ -109,6 +111,7 @@
     padding: 0;
     background-color: rgba(19 19 19 / 25%);
     transition: background-color 0.2s;
+    display: none;
 }
 
 .carousel .carousel-navigation-buttons button:hover,
@@ -140,6 +143,7 @@
         left: 24px;
         right: 24px;
     }
+
 
     .carousel .carousel-slide .carousel-slide-content {
         --slide-content-width: calc((100% - 184px) / 2);
