@@ -1,4 +1,4 @@
-.columns > div {
+.columns>div {
   display: flex;
   flex-direction: column;
 }
@@ -7,26 +7,81 @@
   width: 100%;
 }
 
-.columns > div > div {
+.columns>div>div {
   order: 1;
 }
 
-.columns > div > .columns-img-col {
+.columns>div>.columns-img-col {
   order: 0;
 }
 
-.columns > div > .columns-img-col img {
+.columns>div>.columns-img-col img {
   display: block;
 }
 
-@media (width >= 900px) {
-  .columns > div {
+.columns-container .columns>div>div:nth-child() {
+  width: 100%;
+  flex: 2;
+}
+
+.columns-container .columns>div h2 {
+  width: 100%;
+  text-align: center;
+  letter-spacing: 3px;
+  font-size: 52px;
+  font-weight: 100;
+}
+
+.columns-container .columns>div h3 {
+  margin-top: 1px;
+  text-align: center;
+  letter-spacing: 1px;
+  font-size: 43px;
+  font-weight: 100;
+}
+
+.columns-container .columns>div p {
+  text-align: center;
+}
+
+.columns-container .columns>div a {
+  background-color: transparent;
+  text-decoration: underline;
+  color: rgba(19 19 19/75%);
+  margin: 10px;
+}
+
+.shop-summer-bg .columns-wrapper .columns>div>div:nth-child(2) {
+  background-color: rgb(27, 37, 44);
+  color: white;
+  letter-spacing: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  /* max-width: 300px; */
+  padding: 20px;
+  width: auto;
+  height: 500px;
+}
+
+.shop-summer-bg .columns-wrapper .columns>div>div:nth-child(2) p a {
+  color: white;
+}
+
+@media (width >=900px) {
+  .columns>div {
     align-items: center;
     flex-direction: unset;
-    gap: 24px;
+
+    /* gap: 24px; */
   }
 
-  .columns > div > div {
+  .shop-summer-bg .columns-wrapper .columns>div>div:nth-child(2) {
+    max-width: 300px;
+  }
+
+  .columns>div>div {
     flex: 1;
     order: unset;
   }
