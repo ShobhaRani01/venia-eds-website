@@ -3,9 +3,9 @@ footer {
   font-size: var(--body-font-size-xs);
 }
 
-footer .footer>div {
-  margin: auto;
+footer .footer {
   max-width: 1200px;
+  margin: auto;
   padding: 40px 24px 24px;
 }
 
@@ -15,30 +15,56 @@ footer .footer p {
 
 footer ul {
   display: flex;
+  flex-wrap: wrap;
+  /* Ensures wrapping on small screens */
   list-style: none;
   width: 100%;
   padding: 0;
   margin: 0;
-  flex-wrap: wrap;
   text-align: left;
+  justify-content: space-between;
 }
 
-@media (width > 900px) {
+/* Desktop: 4-5 columns */
+@media (min-width: 901px) {
   footer .footer ul>li {
+    flex: 1;
     min-width: 10%;
     margin-bottom: 16px;
   }
 }
 
-footer .footer ul>li {
-  flex: 1;
-  margin-top: 10px;
-  text-align: left;
+/* Tablet: 2 columns */
+@media (max-width: 900px) {
+  footer .footer ul {
+    flex-direction: row;
+  }
+
+  footer .footer ul>li {
+    width: 45%;
+    /* Makes two columns */
+    min-width: 45%;
+    margin-bottom: 16px;
+  }
+}
+
+/* Mobile: 1 column */
+@media (max-width: 600px) {
+  footer .footer ul {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  footer .footer ul>li {
+    width: 100%;
+    /* Full width for single-column */
+    min-width: 100%;
+    text-align: center;
+  }
 }
 
 footer ul li {
   list-style-type: none;
-  min-width: 20%;
   margin-bottom: 10px;
 }
 
@@ -53,22 +79,12 @@ footer .footer ul>li>ul {
   display: flex;
   gap: 4rem;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .logo-icon>div>p>span {
   width: 150px;
   height: 25px;
-}
-
-@media (width >=900px) {
-  footer .footer>div {
-    padding: 40px 32px 24px;
-  }
-
-  footer .footer ul>li {
-    min-width: 10%;
-    margin-bottom: 18px;
-  }
 }
 
 footer a:any-link {

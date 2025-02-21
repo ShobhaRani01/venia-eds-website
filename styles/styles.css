@@ -63,7 +63,7 @@
     /* heading sizes */
     --heading-font-size-xxl: 45px;
     --heading-font-size-xl: 36px;
-    --heading-font-size-l: 28px;
+    --heading-font-size-l: 18px;
     --heading-font-size-m: 22px;
     --heading-font-size-s: 20px;
     --heading-font-size-xs: 18px;
@@ -256,7 +256,7 @@ main>.section>div {
 }
 
 main>.section:first-of-type {
-  margin-top: 0;
+  margin-top: 40px;
 }
 
 @media (width >=900px) {

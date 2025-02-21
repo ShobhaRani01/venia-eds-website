@@ -27,6 +27,22 @@ header nav[aria-expanded='true'] {
   min-height: 100dvh;
 }
 
+.top-nav-bg {
+  background-color: gray;
+  color: black;
+  font-size: 16px;
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  cursor: pointer;
+}
+
+.top-nav-bg ul {
+  list-style-type: none;
+  margin-right: 20px;
+}
+
+
 @media (width >=900px) {
   header nav {
     display: flex;

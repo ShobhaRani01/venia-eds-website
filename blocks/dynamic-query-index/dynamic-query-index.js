@@ -4,9 +4,7 @@ function createCard(data) {
   const card = document.createElement('div');
   card.classList.add('dynamic-card');
 
-  const imgUrl = data.image.includes('/default')
-    ? '../../icons/getinTouch.png'
-    : data.image;
+  const imgUrl = data.image.includes('/venia') ? data.image : '../../icons/facebook.svg';
   const img = createOptimizedPicture(imgUrl, data.title || 'Image', false, [{ width: '750' }]);
 
   const header = document.createElement('h3');
@@ -27,31 +25,48 @@ async function fetchJsonData(jsonURL) {
 }
 
 function createCarousel(data) {
+  const visibleCards = 4;
+  const totalSlides = Math.ceil(data.length / visibleCards);
+
   const carouselContainer = document.createElement('div');
   carouselContainer.classList.add('carousel-container');
 
-  const carouselTrack = document.createElement('div');
-  carouselTrack.classList.add('carousel-track');
+  const trackWrapper = document.createElement('div');
+  trackWrapper.classList.add('carousel-track-wrapper');
+
+  const track = document.createElement('div');
+  track.classList.add('carousel-track');
+
+  trackWrapper.append(track);
+  carouselContainer.append(trackWrapper);
 
   const cardElements = data.map(createCard);
-  carouselTrack.append(...cardElements);
+  track.append(...cardElements);
 
   const dotsContainer = document.createElement('div');
-  dotsContainer.classList.add('dots-container');
+  dotsContainer.classList.add('carousel-dots');
 
-  cardElements.forEach((_, index) => {
-    const dot = document.createElement('span');
-    dot.classList.add('dot');
-    if (index === 0) dot.classList.add('active');
+  for (let i = 0; i < totalSlides; i++) {
+    const dot = document.createElement('div');
+    dot.classList.add('carousel-dot');
+    if (i === 0) dot.classList.add('active');
+    dot.dataset.index = i;
+
     dot.addEventListener('click', () => {
-      carouselTrack.scrollTo({ left: index * 300, behavior: 'smooth' });
-      document.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
+      trackWrapper.scrollTo({
+        left: i * trackWrapper.clientWidth,
+        behavior: 'smooth',
+      });
+
+      dotsContainer.querySelectorAll('.carousel-dot').forEach((d) => d.classList.remove('active'));
       dot.classList.add('active');
     });
-    dotsContainer.appendChild(dot);
-  });
 
-  carouselContainer.append(carouselTrack, dotsContainer);
+    dotsContainer.appendChild(dot);
+  }
+
+  carouselContainer.appendChild(dotsContainer);
+
   return carouselContainer;
 }
 
@@ -59,16 +74,13 @@ export default async function decorate(block) {
   const queryIndexLink = block.querySelector('a[href$=".json"]');
   if (!queryIndexLink) return;
 
-  const parentDiv = document.createElement('div');
-  parentDiv.classList.add('dynamic-magazine-block');
-
   try {
     const jsonURL = queryIndexLink.href;
     const jsonData = await fetchJsonData(jsonURL);
+
     const carousel = createCarousel(jsonData.data);
-    parentDiv.append(carousel);
-    queryIndexLink.replaceWith(parentDiv);
+    queryIndexLink.replaceWith(carousel);
   } catch (error) {
-    console.error('Error creating dynamic magazine block:', error);
+    console.error(`Error creating carousel: ${error.message}`);
   }
 }
