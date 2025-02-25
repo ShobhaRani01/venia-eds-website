@@ -62,6 +62,7 @@ export default async function decorate(block) {
       });
     });
   }
+
   const headerBlock = document.querySelector('.header.block');
   if (headerBlock) {
     const topNavDiv = document.createElement('div');
@@ -70,20 +71,35 @@ export default async function decorate(block) {
     const navList = document.createElement('ul');
     navList.className = 'nav-list';
 
-    const loginItem = document.createElement('li');
-    loginItem.textContent = 'Main Website Store - Demo Store View2 | $EUR';
+    const storeSelector = document.createElement('li');
+    storeSelector.className = 'store-selector';
+    storeSelector.textContent = 'Main Website Store - Demo Store View2 | € EUR';
 
-    // const loginItem = document.createElement('li');
-    // const loginLink = document.createElement('a');
-    // loginLink.textContent = "Main Website Store - Demo Store View2 | $ EUR";
-    // loginLink.href = '/https://venia.magento.com/';
-    // loginItem.appendChild(loginLink);
+    const dropdownMenu = document.createElement('ul');
+    dropdownMenu.classList.add('store-dropdown');
+    dropdownMenu.style.display = 'none';
+    dropdownMenu.innerHTML = `
+        <li>Main Website Store - Demo Store View2</li>
+        <li>Main Website Store - Default Store View</li>
+        <li>Second Store - Second Store V1</li>
+        <li>Second Store - Second Store View2</li>
+    `;
 
-    navList.appendChild(loginItem);
+    storeSelector.appendChild(dropdownMenu);
+
+    storeSelector.addEventListener('click', (event) => {
+      event.stopPropagation();
+      dropdownMenu.style.display = dropdownMenu.style.display === 'none' ? 'block' : 'none';
+    });
+
+    document.addEventListener('click', () => {
+      dropdownMenu.style.display = 'none';
+    });
+
+    navList.appendChild(storeSelector);
     topNavDiv.appendChild(navList);
     headerBlock.prepend(topNavDiv);
   }
-
 
   const hamburger = document.createElement('div');
   hamburger.classList.add('nav-hamburger');

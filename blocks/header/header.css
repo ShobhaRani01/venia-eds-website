@@ -42,6 +42,35 @@ header nav[aria-expanded='true'] {
   margin-right: 20px;
 }
 
+.store-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  list-style: none;
+  padding: 10px;
+  min-width: 250px;
+  z-index: 1000;
+}
+
+.store-dropdown li {
+  padding: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.store-dropdown li:hover {
+  background: #f1f1f1;
+}
+
+.store-selector {
+  position: relative;
+  cursor: pointer;
+  border-radius: 4px;
+}
 
 @media (width >=900px) {
   header nav {
